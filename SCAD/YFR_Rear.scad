@@ -47,10 +47,10 @@ module Vitamins_YFR()
 	Vitamin_AluminumExtrusion(HW_FrameLength);
 
 	%translate([ hwLR_Rail_Length /2 + rpYFR_CapThickness, -rpYFR_RailSpacing /2, HW_FrameSize - hwLR_Rail_Height ])
-	import("vitamins/hiwin12-rail.stl", convexity=3);
+	import("vitamins/hiwin9-rail.stl", convexity=3);
 
 	%translate([ hwLR_Rail_Length /2 + rpYFR_CapThickness, rpYFR_RailSpacing /2, HW_FrameSize - hwLR_Rail_Height ])
-	import("vitamins/hiwin12-rail.stl", convexity=3);
+	import("vitamins/hiwin9-rail.stl", convexity=3);
 }
 
 // -----------------------------------------------------------------------------
@@ -70,15 +70,35 @@ module Part_YFR_Rear()
 		// carve out hardware spaces
 		union() {
 
+			// extrusion frame
 			translate([	-((HW_FrameSize + gcMachineOffset) /2),
 			 						-(rpYFR_RailSpacing /2) - ((HW_FrameSize + gcMachineOffset) /2),
 									rpYFR_CapThickness])
-			cube([HW_FrameSize + gcMachineOffset, HW_FrameSize + gcMachineOffset, HW_FrameLength]);
+			cube([	HW_FrameSize + gcMachineOffset,
+							HW_FrameSize + gcMachineOffset,
+							HW_FrameLength]);
 
+		  // hiwin rail
+			translate([	-((HW_FrameSize + gcMachineOffset) /2) - hwLR_Rail_Height -gcMachineOffset ,
+			 						-(rpYFR_RailSpacing /2) - (hwLR_Rail_Width /2) - (gcMachineOffset /2),
+									rpYFR_CapThickness])
+			cube([	hwLR_Rail_Height + gcMachineOffset,
+							hwLR_Rail_Width + gcMachineOffset,
+							hwLR_Rail_Length]);
+
+			// extrusion frame
 			translate([	-((HW_FrameSize + gcMachineOffset) /2),
 									(rpYFR_RailSpacing /2) - ((HW_FrameSize + gcMachineOffset) /2),
 									rpYFR_CapThickness])
 			cube([HW_FrameSize + gcMachineOffset, HW_FrameSize + gcMachineOffset, HW_FrameLength]);
+
+			// hiwin rail
+			translate([	-((HW_FrameSize + gcMachineOffset) /2) - hwLR_Rail_Height -gcMachineOffset ,
+									(rpYFR_RailSpacing /2) - (hwLR_Rail_Width /2) - (gcMachineOffset /2),
+									rpYFR_CapThickness])
+			cube([	hwLR_Rail_Height + gcMachineOffset,
+							hwLR_Rail_Width + gcMachineOffset,
+							hwLR_Rail_Length]);
 		}
 
 	}
