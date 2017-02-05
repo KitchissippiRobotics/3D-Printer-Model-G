@@ -9,7 +9,7 @@
 // Common Hardware
 // *****************************************************************************
 
-include <GlobalSettings.scad>
+include <Configuration.scad>
 
 // Metric Bolt Hardware
 

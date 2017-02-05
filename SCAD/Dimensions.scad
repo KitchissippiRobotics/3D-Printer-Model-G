@@ -10,4 +10,7 @@
 // Include common assembly hardware dimensions
 include <CommonHardware.scad>
 
-rpYFR_RailSpacing = 120;  // center-to-center spacing of Y Axis rails
+rpYFR_RailSpacing = 150;  // center-to-center spacing of Y Axis rails
+
+rpYFR_CapThickness = 3;
+rpYFR_CapLength = 40;
