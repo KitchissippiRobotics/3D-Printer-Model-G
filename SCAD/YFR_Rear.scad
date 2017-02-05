@@ -28,8 +28,8 @@ if (MultiPartMode == undef) {
 	//rotate([ 0, 90, 0 ])
 	Part_YFR_Rear();
 
-	/*rotate([ 0, -90, 0 ])
-	Vitamins_YFR();*/
+	rotate([ 0, -90, 0 ])
+	Vitamins_YFR();
 } else {
 	EnableSupport = false;
 }
@@ -53,6 +53,10 @@ module Vitamins_YFR()
 
 	%translate([ hwLR_Rail_Length /2 + rpYFR_CapThickness, rpYFR_RailSpacing /2, HW_FrameSize - hwLR_Rail_Height ])
 	import("vitamins/hiwin9-rail.stl", convexity=3);
+
+	%translate([ rpYFR_MotorInset, rpYFR_MotorHorizontalOffset, rpYFR_MotorVerticalOffset ])
+	rotate([ 0, 0, 90 ])
+	import("vitamins/y-axis-motor.stl", convexity=3);
 }
 
 // -----------------------------------------------------------------------------

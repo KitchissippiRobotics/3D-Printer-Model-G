@@ -58,24 +58,37 @@ hwM4_Bolt_HexHeadHeight 		= 2.8;
 
 
 // -----------------------------------------------------------------------------
-module Draw_hw_Bolt_AllenHead(_boltSize, _boltLength)
+module Draw_hw_Bolt_AllenHead(_boltSize, _boltLength, _washerSize = 0, _washerThickness = 0.9)
 {
+	washerOffset = 0;
+
+	// washer insert
+	if (_washerSize > 0) {
+		translate([ 0, 0, 0])
+		cylinder( h = _washerThickness,
+							d = _washerSize,
+							center = false,
+							$fn = gcFacetSmall);
+		washerOffset = _washerThickness;
+	}
+
 	// bolt shaft
+	translate([ 0, 0, -washerOffset])
 	cylinder(h = _boltLength, d = _boltSize[iBolt_ShaftDiameter], $fn=gcFacetSmall, center = false);
 
 	// bolt head - Allen Key type
 	difference() {
-		translate([0,0,_boltLength])
+		translate([0,0,- _boltSize[iBolt_HeadHeight] - washerOffset])
 		cylinder(	h = _boltSize[iBolt_HeadHeight],
 							d = _boltSize[iBolt_HeadDiameter],
 							center = false,
 							$fn=gcFacetSmall);
 
-		translate([0,0,_boltLength  + 1])
+		translate([0,0,- _boltSize[iBolt_HeadHeight] - 1 - washerOffset])
 		cylinder(	h = _boltSize[iBolt_HeadHeight],
 							d = _boltSize[iBolt_HeadDiameter] / 2,
 							center = false,
-							$fn = gcFacetSmall);
+							$fn = 6);
 	}
 }
 
@@ -92,7 +105,6 @@ module Carve_hw_Bolt_AllenHead(_boltSize, _boltLength, _headClearance = 0, _wash
 	}
 
 	// hole for bolt shaft
-	translate([ 0, 0, 0 ])
 	cylinder(	h = _boltLength + gcMachineOffset /2,
 						d = _boltSize[iBolt_ShaftDiameter] + gcMachineOffset,
 						center = false,

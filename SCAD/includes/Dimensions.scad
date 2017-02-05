@@ -12,11 +12,15 @@ include <Configuration.scad>
 
 rpYFR_RailSpacing = 160;  // center-to-center spacing of Y Axis rails
 
-rpYFR_CapThickness = 1.8;
+rpYFR_CapThickness = 2;
 rpYFR_CapLength = 40;
 
 rpYFR_OutterBoltSpacing = 16;
 rpYFR_BoltDepth = 5;
+
+rpYFR_MotorHorizontalOffset = -57.5; // offset of motor and belt pulley from center line
+rpYFR_MotorVerticalOffset = -21;
+rpYFR_MotorInset = 42 + rpYFR_CapThickness + 2;
 
 hwLR_Rail_Width = 9;
 hwLR_Rail_Height = 6.5;
