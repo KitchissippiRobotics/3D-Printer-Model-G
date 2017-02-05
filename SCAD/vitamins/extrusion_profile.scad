@@ -1,5 +1,5 @@
 
-include <../Configuration.scad>
+include <../includes/Configuration.scad>
 
 module Vitamin_AluminumExtrusion(_length = 500) {
 	if (HW_FrameStyle == GCFrame_TNutProfile) {

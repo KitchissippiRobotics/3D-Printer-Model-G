@@ -9,7 +9,7 @@
 // Common Hardware
 // *****************************************************************************
 
-include <Configuration.scad>
+include <Global.scad>
 
 // Metric Bolt Hardware
 
@@ -60,42 +60,52 @@ hwM4_Bolt_HexHeadHeight 		= 2.8;
 // -----------------------------------------------------------------------------
 module Draw_hw_Bolt_AllenHead(_boltSize, _boltLength)
 {
-	% union() {
-		// bolt shaft
-		cylinder(h = _boltLength, d = _boltSize[iBolt_ShaftDiameter], $fn=gcFacetSmall, center = false);
+	// bolt shaft
+	cylinder(h = _boltLength, d = _boltSize[iBolt_ShaftDiameter], $fn=gcFacetSmall, center = false);
 
-		// bolt head - Allen Key type
-		difference() {
-			translate([0,0,_boltLength])
-				cylinder(	h = _boltSize[iBolt_HeadHeight],
-									d = _boltSize[iBolt_HeadDiameter],
-									center = false,
-									$fn=gcFacetSmall);
+	// bolt head - Allen Key type
+	difference() {
+		translate([0,0,_boltLength])
+		cylinder(	h = _boltSize[iBolt_HeadHeight],
+							d = _boltSize[iBolt_HeadDiameter],
+							center = false,
+							$fn=gcFacetSmall);
 
-			translate([0,0,_boltLength  + 1])
-				cylinder(	h = _boltSize[iBolt_HeadHeight],
-									d = _boltSize[iBolt_HeadDiameter] / 2,
-									center = false,
-									$fn = gcFacetSmall);
-		}
+		translate([0,0,_boltLength  + 1])
+		cylinder(	h = _boltSize[iBolt_HeadHeight],
+							d = _boltSize[iBolt_HeadDiameter] / 2,
+							center = false,
+							$fn = gcFacetSmall);
 	}
 }
 
 // -----------------------------------------------------------------------------
-module Carve_hw_Bolt_AllenHead(_boltSize, _boltLength, _headClearance = 0)
+module Carve_hw_Bolt_AllenHead(_boltSize, _boltLength, _headClearance = 0, _washerSize = 0, _washerThickness = 0.9)
 {
+	// washer insert
+	if (_washerSize > 0) {
+		translate([ 0, 0, - _boltSize[iBolt_HeadHeight]])
+		cylinder( h = _washerThickness + _boltSize[iBolt_HeadHeight],
+							d = _washerSize + gcMachineOffset,
+							center = false,
+							$fn = gcFacetSmall);
+	}
+
 	// hole for bolt shaft
-	cylinder(	h = _boltLength,
+	translate([ 0, 0, 0 ])
+	cylinder(	h = _boltLength + gcMachineOffset /2,
 						d = _boltSize[iBolt_ShaftDiameter] + gcMachineOffset,
 						center = false,
-						$fn=gcFacetSmall);
+						$fn = gcFacetSmall);
 
   // hole for bolt head
-  translate([0,0,_boltLength])
-		cylinder(	h = 	_boltSize[iBolt_HeadHeight] + _headClearance,
-							d = _boltSize[iBolt_HeadDiameter] + gcMachineOffset + gRender_Clearance,
-							center = false,
-							$fn=gcFacetSmall);
+  translate([0, 0, - _boltSize[iBolt_HeadHeight] ])
+	cylinder(	h = _boltSize[iBolt_HeadHeight] + _headClearance + + gcMachineOffset,
+						d = _boltSize[iBolt_HeadDiameter] + gcMachineOffset,
+						center = false,
+						$fn = gcFacetSmall);
+
+
 }
 
 // HiWin Style Linear Rail Dimensions [LR]

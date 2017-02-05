@@ -7,8 +7,10 @@
 // Copyright (c) 2017 Kitchissippi Robotics
 // *****************************************************************************
 
-include <Dimensions.scad>
+include <includes/Dimensions.scad>
 include <vitamins/extrusion_profile.scad>
+include <YFR_Common.scad>
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Default Usage:
@@ -26,8 +28,8 @@ if (MultiPartMode == undef) {
 	//rotate([ 0, 90, 0 ])
 	Part_YFR_Rear();
 
-	rotate([ 0, -90, 0 ])
-	Vitamins_YFR();
+	/*rotate([ 0, -90, 0 ])
+	Vitamins_YFR();*/
 } else {
 	EnableSupport = false;
 }
@@ -61,9 +63,11 @@ module Part_YFR_Rear()
 		union() {
 		  // frame holders
 			translate([	0, -rpYFR_RailSpacing /2, 0 ])
+			mirror([ 0, 1, 0 ])
 			yfr_FrameHolder();
 
 			translate([	0, rpYFR_RailSpacing /2, 0 ])
+			mirror([ 0, 0, 0 ])
 			yfr_FrameHolder();
 		}
 
@@ -105,57 +109,3 @@ module Part_YFR_Rear()
 }
 
 // *****************************************************************************
-
-// -----------------------------------------------------------------------------
-module yfr_FrameHolder()
-{
-	// pre calculate repeatedly used values
-
-	capLength 		= rpYFR_CapLength - rpYFR_CapThickness - gcBevelSize;
-	topOffset 		= HW_FrameSize /2 + hwLR_Rail_Height + rpYFR_CapThickness;
-	bottomOffset 	= HW_FrameSize /2 + rpYFR_CapThickness;
-	sideOffset 		= HW_FrameSize /2 + rpYFR_CapThickness;
-
-	hull() {
-		translate([ -topOffset, -sideOffset, gcBevelSize ])
-		cylinder(	d = gcBevelDiameter,
-							h = capLength,
-							$fn = gcFacetSmall);
-
-		translate([ -topOffset, sideOffset, gcBevelSize ])
-		cylinder(	d = gcBevelDiameter,
-							h = capLength,
-							$fn = gcFacetSmall);
-
-		translate([ bottomOffset, -sideOffset, gcBevelSize ])
-		cylinder(	d = gcBevelDiameter,
-							h = capLength,
-							$fn = gcFacetSmall);
-
-		translate([ bottomOffset, sideOffset, gcBevelSize ])
-		cylinder(	d = gcBevelDiameter,
-							h = capLength,
-							$fn = gcFacetSmall);
-
-		// 2017 Style Parametric Bevels
-		translate([ -topOffset + gcBevelInset, -sideOffset + gcBevelInset, 0 ])
-		cylinder(	d = gcBevelDiameter,
-							h = gcBevelSize,
-							$fn = gcFacetSmall);
-
-		translate([ -topOffset + gcBevelInset, sideOffset - gcBevelInset, 0 ])
-		cylinder(	d = gcBevelDiameter,
-							h = gcBevelSize,
-							$fn = gcFacetSmall);
-
-		translate([ bottomOffset - gcBevelInset, -sideOffset + gcBevelInset, 0 ])
-		cylinder(	d = gcBevelDiameter,
-							h = gcBevelSize,
-							$fn = gcFacetSmall);
-
-		translate([ bottomOffset - gcBevelInset, sideOffset - gcBevelInset, 0 ])
-		cylinder(	d = gcBevelDiameter,
-							h = gcBevelSize,
-							$fn = gcFacetSmall);
-	}
-}
