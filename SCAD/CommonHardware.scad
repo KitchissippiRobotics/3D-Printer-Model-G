@@ -44,12 +44,12 @@ hwM4_Bolt_AllenHeadHeight 	= 4.3;
 
 // Define Bolt Reference
 hwM4_Bolt_AllenHeadSize 		= [	6.8,		// 0) HeadDiameter
-															4.3, 			// 1) HeadHeight
-															4 ]; 			// 2) ShaftDiameter
+																4.3, 			// 1) HeadHeight
+																4 ]; 			// 2) ShaftDiameter
 
 // Hex Wrench style head
-hwM4_Bolt_HexHeadDiameter = 7.8;
-hwM4_Bolt_HexHeadHeight = 2.8;
+hwM4_Bolt_HexHeadDiameter 	= 7.8;
+hwM4_Bolt_HexHeadHeight 		= 2.8;
 
 
 // *****************************************************************************
@@ -75,8 +75,8 @@ module Draw_hw_Bolt_AllenHead(_boltSize, _boltLength)
 			translate([0,0,_boltLength  + 1])
 				cylinder(	h = _boltSize[iBolt_HeadHeight],
 									d = _boltSize[iBolt_HeadDiameter] / 2,
-									center = false;
-									$fn = gcFacetSmall;
+									center = false,
+									$fn = gcFacetSmall);
 		}
 	}
 }
@@ -121,3 +121,8 @@ hwLR_Carriage_BoltDiameter = hwM3_Bolt_ShaftDiameter;
 
 hwLR_Guide_BoltSpacing = 20;			// spacing between guide rail mounting holes
 hwLR_Guide_BoltDiameter = hwM3_Bolt_ShaftDiameter;
+
+// Frame Options
+
+GCFrame_SquareNutProfile = 0;
+GCFrame_TNutProfile = 1;

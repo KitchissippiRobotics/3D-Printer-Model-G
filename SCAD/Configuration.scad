@@ -14,6 +14,14 @@
 
 include <CommonHardware.scad>
 
+
+// Aluminum Extrusion Frame Options
+
+HW_FrameStyle = GCFrame_TNutProfile;	// Square Nut Extrusion Profile
+HW_FrameSize = 20;						// 20mm x 20mm square
+HW_FrameLength = 500;					// Default Tube Length
+
+
 // =============================================================================
 // Global Settings - Edit These to tweak rendering and printability
 // =============================================================================
