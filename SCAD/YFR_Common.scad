@@ -12,6 +12,8 @@ include <includes/Dimensions.scad>   // includes CommonHardware.scad & Configura
 // -----------------------------------------------------------------------------
 module yfr_FrameHolder()
 {
+
+
   difference() {
   	yfr_frameHolder_draw();
     yfr_frameHolder_carve();
@@ -102,6 +104,26 @@ module yfr_frameHolder_carve()
   translate([ outerBoltOffset, 0, boltCenter + (rpYFR_OutterBoltSpacing /2) ])
   rotate([ 90, 0, -90 ])
   Carve_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, 0, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
+
+  // carriage clearance
+  hull() {
+    translate([ -12, 23, 12 ])
+    rotate([ 90, 0, 0 ])
+    cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
+
+    translate([ -12, 23, 10 + rpYFR_CapLength ])
+    rotate([ 90, 0, 0 ])
+    cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
+
+    translate([ -22, 23, 12 ])
+    rotate([ 90, 0, 0 ])
+    cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
+
+    translate([ -22, 23, 10 + rpYFR_CapLength ])
+    rotate([ 90, 0, 0 ])
+    cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
+  }
+
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -132,4 +154,68 @@ module yfr_frameHolder_vitamins()
   %translate([ outerBoltOffset, 0, boltCenter + (rpYFR_OutterBoltSpacing /2) ])
   rotate([ 90, 0, -90 ])
   Draw_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
+}
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+module kr_bevel_box(_x, _y, _z)
+{
+  // pre calculate repeatedly used values
+  xOffset = _x /2;
+  yOffset = _y /2;
+	zLength 		= _z - gcBevelSize;
+
+	hull() {
+		translate([ -xOffset, - yOffset, gcBevelSize ])
+		cylinder(	d = gcBevelDiameter,
+							h = zLength,
+							$fn = gcFacetSmall);
+
+		translate([ -xOffset, yOffset, gcBevelSize ])
+		cylinder(	d = gcBevelDiameter,
+							h = zLength,
+							$fn = gcFacetSmall);
+
+		translate([ xOffset, -yOffset, gcBevelSize ])
+		cylinder(	d = gcBevelDiameter,
+							h = zLength,
+							$fn = gcFacetSmall);
+
+		translate([ xOffset, yOffset, gcBevelSize ])
+		cylinder(	d = gcBevelDiameter,
+							h = zLength,
+							$fn = gcFacetSmall);
+
+		// 2017 Style Parametric Bevels
+		translate([ -xOffset + gcBevelInset, -yOffset + gcBevelInset, 0 ])
+		cylinder(	d = gcBevelDiameter,
+							h = gcBevelSize,
+							$fn = gcFacetSmall);
+
+		translate([ -xOffset + gcBevelInset, yOffset - gcBevelInset, 0 ])
+		cylinder(	d = gcBevelDiameter,
+							h = gcBevelSize,
+							$fn = gcFacetSmall);
+
+		translate([ xOffset - gcBevelInset, -yOffset + gcBevelInset, 0 ])
+		cylinder(	d = gcBevelDiameter,
+							h = gcBevelSize,
+							$fn = gcFacetSmall);
+
+		translate([ xOffset - gcBevelInset, yOffset - gcBevelInset, 0 ])
+		cylinder(	d = gcBevelDiameter,
+							h = gcBevelSize,
+							$fn = gcFacetSmall);
+	}
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+module kr_carved_bevel_box(_x, _y, _z, _inset, _thickness)
+{
+  difference() {
+    kr_bevel_box(_x, _y, _z);
+
+    translate([ 0, 0, _thickness ])
+    kr_bevel_box(_x - _inset *2, _y - _inset *2, _z - _thickness + 0.1);
+  }
 }

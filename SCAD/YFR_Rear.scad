@@ -73,10 +73,25 @@ module Part_YFR_Rear()
 			translate([	0, rpYFR_RailSpacing /2, 0 ])
 			mirror([ 0, 0, 0 ])
 			yfr_FrameHolder();
+
+			// main backplate
+			translate([ 0, 0, 0 ])
+			kr_carved_bevel_box(	HW_FrameSize + gcBevelDiameter * 2,
+														rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter -2,
+														rpYFR_PlateDepth,
+														rpYFR_PlateWall,
+														rpYFR_PlateThickness);
+
+			// motor backplate
+			translate([ 0, -34.5, 0 ])
+			kr_bevel_box(	rpYFR_MotorPlateHeight,
+										rpYFR_MotorPlateWidth,
+										rpYFR_MotorPlateThickness);
 		}
 
 		// carve out hardware spaces
 		union() {
+
 
 			// extrusion frame
 			translate([	-((HW_FrameSize + gcMachineOffset) /2),
@@ -107,9 +122,38 @@ module Part_YFR_Rear()
 			cube([	hwLR_Rail_Height + gcMachineOffset,
 							hwLR_Rail_Width + gcMachineOffset,
 							hwLR_Rail_Length]);
+
+			// motor backplate
+			translate([ 0, -34.5, rpYFR_PlateThickness / 2 ])
+			kr_bevel_box(	rpYFR_MotorPlateHeight - rpYFR_PlateWall,
+										rpYFR_MotorPlateWidth - rpYFR_PlateWall,
+										rpYFR_MotorPlateThickness);
+
+
+
+
+										//rpYFR_PlateWall / 2)
 		}
 
 	}
+
+	// motor mounting
+	translate([ 0, -7, 0 ])
+	kr_bevel_box(	rpYFR_MotorPlateHeight,
+								5,
+								21 + 4,
+								rpYFR_PlateWall,
+								rpYFR_PlateThickness);
+
+	// motor mounting
+	translate([ 0, -7, 46 ])
+	mirror([ 0, 0, 1 ])
+	kr_bevel_box(	rpYFR_MotorPlateHeight,
+								5,
+								21 + 4,
+								rpYFR_PlateWall,
+								rpYFR_PlateThickness);
+
 }
 
 // *****************************************************************************
