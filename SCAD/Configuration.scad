@@ -12,9 +12,10 @@
 // Include common assembly hardware dimensions
 // Note this requires the kitchissippi-robotics hardware library installed
 
-include <CommonHardware.scad>
+// Frame Options
 
-
+GCFrame_SquareNutProfile = 0;
+GCFrame_TNutProfile = 1;
 
 
 // Aluminum Extrusion Frame Options
@@ -23,6 +24,10 @@ HW_FrameStyle = GCFrame_TNutProfile;	// Square Nut Extrusion Profile
 HW_FrameSize = 20;						// 20mm x 20mm square
 HW_FrameLength = 500;					// Default Tube Length
 
+// Bevel Settings - default is 2
+gcBevelSize = 2;
+gcBevelInset = gcBevelSize / 2;
+gcBevelDiameter = gcBevelSize * 2;
 
 // =============================================================================
 // Global Settings - Edit These to tweak rendering and printability

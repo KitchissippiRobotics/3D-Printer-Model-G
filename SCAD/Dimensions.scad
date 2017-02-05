@@ -12,5 +12,9 @@ include <CommonHardware.scad>
 
 rpYFR_RailSpacing = 150;  // center-to-center spacing of Y Axis rails
 
-rpYFR_CapThickness = 3;
+rpYFR_CapThickness = 3.1;
 rpYFR_CapLength = 40;
+
+hwLR_Rail_Width = 9;
+hwLR_Rail_Height = 6.5;
+hwLR_Rail_Length = 500;

@@ -15,6 +15,7 @@ include <vitamins/extrusion_profile.scad>
 // Part_YFR_Rear();
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
 // Determine if MultiPartMode is enabled - if not, render the part automatically
 // and enable support material (if it is defined)
 
@@ -22,8 +23,10 @@ if (MultiPartMode == undef) {
 	MultiPartMode = false;
 	EnableSupport = true;
 
-	rotate([ 0, 90, 0 ])
+	//rotate([ 0, 90, 0 ])
 	Part_YFR_Rear();
+
+	rotate([ 0, -90, 0 ])
 	Vitamins_YFR();
 } else {
 	EnableSupport = false;
@@ -43,9 +46,10 @@ module Vitamins_YFR()
 	rotate([ 0, 90, 0 ])
 	Vitamin_AluminumExtrusion(HW_FrameLength);
 
+	%translate([ hwLR_Rail_Length /2 + rpYFR_CapThickness, -rpYFR_RailSpacing /2, HW_FrameSize - hwLR_Rail_Height ])
+	import("vitamins/hiwin12-rail.stl", convexity=3);
 
-	//rotate([0,0,90])
-	translate([ HW_FrameLength /2 + rpYFR_CapThickness, -rpYFR_RailSpacing /2, HW_FrameSize - 6 ])
+	%translate([ hwLR_Rail_Length /2 + rpYFR_CapThickness, rpYFR_RailSpacing /2, HW_FrameSize - hwLR_Rail_Height ])
 	import("vitamins/hiwin12-rail.stl", convexity=3);
 }
 
@@ -85,46 +89,53 @@ module Part_YFR_Rear()
 // -----------------------------------------------------------------------------
 module yfr_FrameHolder()
 {
+	// pre calculate repeatedly used values
+
+	capLength 		= rpYFR_CapLength - rpYFR_CapThickness - gcBevelSize;
+	topOffset 		= HW_FrameSize /2 + hwLR_Rail_Height + rpYFR_CapThickness;
+	bottomOffset 	= HW_FrameSize /2 + rpYFR_CapThickness;
+	sideOffset 		= HW_FrameSize /2 + rpYFR_CapThickness;
+
 	hull() {
-		translate([ -HW_FrameSize /2, -HW_FrameSize /2, 2 ])
-		cylinder(	d = 4,
-							h = rpYFR_CapLength - ,
+		translate([ -topOffset, -sideOffset, gcBevelSize ])
+		cylinder(	d = gcBevelDiameter,
+							h = capLength,
 							$fn = gcFacetSmall);
 
-		translate([ -HW_FrameSize /2, HW_FrameSize /2, 2 ])
-		cylinder(	d = 4,
-							h = HW_FrameSize + 8,
+		translate([ -topOffset, sideOffset, gcBevelSize ])
+		cylinder(	d = gcBevelDiameter,
+							h = capLength,
 							$fn = gcFacetSmall);
 
-		translate([ HW_FrameSize /2, -HW_FrameSize /2, 2 ])
-		cylinder(	d = 4,
-							h = HW_FrameSize + 8,
+		translate([ bottomOffset, -sideOffset, gcBevelSize ])
+		cylinder(	d = gcBevelDiameter,
+							h = capLength,
 							$fn = gcFacetSmall);
 
-		translate([ HW_FrameSize /2, HW_FrameSize /2, 2 ])
-		cylinder(	d = 4,
-							h = HW_FrameSize + 8,
+		translate([ bottomOffset, sideOffset, gcBevelSize ])
+		cylinder(	d = gcBevelDiameter,
+							h = capLength,
 							$fn = gcFacetSmall);
 
-		// 2016 Style Bevels
-		translate([ -HW_FrameSize /2 + 1, -HW_FrameSize /2 + 1, 0 ])
-		cylinder(	d = 4,
-							h = 2,
+		// 2017 Style Parametric Bevels
+		translate([ -topOffset + gcBevelInset, -sideOffset + gcBevelInset, 0 ])
+		cylinder(	d = gcBevelDiameter,
+							h = gcBevelSize,
 							$fn = gcFacetSmall);
 
-		translate([ -HW_FrameSize /2 + 1, HW_FrameSize /2 - 1, 0 ])
-		cylinder(	d = 4,
-							h = 2,
+		translate([ -topOffset + gcBevelInset, sideOffset - gcBevelInset, 0 ])
+		cylinder(	d = gcBevelDiameter,
+							h = gcBevelSize,
 							$fn = gcFacetSmall);
 
-		translate([ HW_FrameSize /2 - 1, -HW_FrameSize /2 + 1, 0 ])
-		cylinder(	d = 4,
-							h = HW_FrameSize + 8,
+		translate([ bottomOffset - gcBevelInset, -sideOffset + gcBevelInset, 0 ])
+		cylinder(	d = gcBevelDiameter,
+							h = gcBevelSize,
 							$fn = gcFacetSmall);
 
-		translate([ HW_FrameSize /2 - 1, HW_FrameSize /2 - 1, 0 ])
-		cylinder(	d = 4,
-							h = 2,
+		translate([ bottomOffset - gcBevelInset, sideOffset - gcBevelInset, 0 ])
+		cylinder(	d = gcBevelDiameter,
+							h = gcBevelSize,
 							$fn = gcFacetSmall);
 	}
 }

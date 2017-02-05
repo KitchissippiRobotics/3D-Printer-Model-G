@@ -121,8 +121,3 @@ hwLR_Carriage_BoltDiameter = hwM3_Bolt_ShaftDiameter;
 
 hwLR_Guide_BoltSpacing = 20;			// spacing between guide rail mounting holes
 hwLR_Guide_BoltDiameter = hwM3_Bolt_ShaftDiameter;
-
-// Frame Options
-
-GCFrame_SquareNutProfile = 0;
-GCFrame_TNutProfile = 1;
