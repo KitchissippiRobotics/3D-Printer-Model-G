@@ -111,7 +111,7 @@ module Carve_hw_Bolt_AllenHead(_boltSize, _boltLength, _headClearance = 0, _wash
 						$fn = gcFacetSmall);
 
   // hole for bolt head
-  translate([0, 0, - _boltSize[iBolt_HeadHeight] ])
+  translate([0, 0, - _boltSize[iBolt_HeadHeight]  - _headClearance])
 	cylinder(	h = _boltSize[iBolt_HeadHeight] + _headClearance + + gcMachineOffset,
 						d = _boltSize[iBolt_HeadDiameter] + gcMachineOffset,
 						center = false,

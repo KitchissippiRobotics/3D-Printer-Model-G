@@ -134,18 +134,93 @@ module Part_YFR_Rear()
 			// motor main hole
 			translate([ 0, 0, 25])
 			rotate([ 90, 0, 0 ])
-			cylinder ( d = rpYFR_MotorHoleDiameter, h = 20);
+			cylinder ( d = rpYFR_MotorHoleDiameter, h = 20, $fn=gcFacetLarge);
 
 
 			// belt clearance path
 			hull() {
-				translate([ 0, 0, 25])
+				translate([ 0, -2, 25])
 				rotate([ 90, 0, 0 ])
-				cylinder ( d1 = rpYFR_MotorHoleDiameter - 2, d2 = rpYFR_MotorHoleDiameter - 6, h = 5);
+				cylinder ( d1 = rpYFR_MotorHoleDiameter , d2 = rpYFR_MotorHoleDiameter - 8, h = 4, $fn=gcFacetLarge);
 
-				translate([ 50, 0, 25])
+				translate([ 0, -2, 75])
 				rotate([ 90, 0, 0 ])
-				cylinder ( d1 = rpYFR_MotorHoleDiameter - 2, d2 = rpYFR_MotorHoleDiameter - 6, h = 5);
+				cylinder ( d1 = rpYFR_MotorHoleDiameter + 8, d2 = rpYFR_MotorHoleDiameter - 8, h = 4, $fn=gcFacetLarge );
+			}
+
+			// motor mounting bolts
+			translate([ 15.5, -5, 25 - 15.5 ])
+			rotate([ 90, 0, 0 ])
+			Carve_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10, 30);
+
+			translate([ -15.5, -5, 25 - 15.5 ])
+			rotate([ 90, 0, 0 ])
+			Carve_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10, 30);
+
+			translate([ 15.5, -5, 25 + 15.5 ])
+			rotate([ 90, 0, 0 ])
+			Carve_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10, 30);
+
+			translate([ -15.5, -5, 25 + 15.5 ])
+			rotate([ 90, 0, 0 ])
+			Carve_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10, 30);
+
+			translate([ -15.5, 28, 25 - 15.5 ])
+			sphere(d = 5.75, $fn=gcFacetSmall);
+
+			translate([ 15.5, 28, 25 - 15.5 ])
+			sphere(d = 5.75, $fn=gcFacetSmall);
+
+			// vent holes
+			hull() {
+				translate([ -16, -15, -1 ])
+				rotate([ 0, 10, 0 ])
+				cylinder( d = 2, h = 10, $fn=gcFacetSmall);
+
+				translate([ -16, -55, -1 ])
+				rotate([ 0, 10, 0 ])
+				cylinder( d = 2, h = 10, $fn=gcFacetSmall);
+			}
+
+			hull() {
+				translate([ -8, -15, -1 ])
+				rotate([ 0, 5, 0 ])
+				cylinder( d = 3, h = 10, $fn=gcFacetSmall);
+
+				translate([ -8, -55, -1 ])
+				rotate([ 0, 5, 0 ])
+				cylinder( d = 3, h = 10, $fn=gcFacetSmall);
+			}
+
+			hull() {
+				translate([ 0, -15, -1 ])
+				rotate([ 0, 0, 0 ])
+				cylinder( d = 4, h = 10, $fn=gcFacetSmall);
+
+				translate([ 0, -55, -1 ])
+				rotate([ 0, -15, 0 ])
+				cylinder( d = 4, h = 10, $fn=gcFacetSmall);
+			}
+
+			hull() {
+				translate([ 8, -15, -1 ])
+				rotate([ 0, -5, 0 ])
+				cylinder( d = 3, h = 10, $fn=gcFacetSmall);
+
+				translate([ 8, -55, -1 ])
+				rotate([ 0, -5, 0 ])
+				cylinder( d = 3, h = 10, $fn=gcFacetSmall);
+			}
+
+
+			hull() {
+				translate([ 16, -15, -1 ])
+				rotate([ 0, -10, 0 ])
+				cylinder( d = 2, h = 10, $fn=gcFacetSmall);
+
+				translate([ 16, -55, -1 ])
+				rotate([ 0, -10, 0 ])
+				cylinder( d = 2, h = 10, $fn=gcFacetSmall);
 			}
 
 		}
@@ -167,7 +242,7 @@ module yfr_motorMount()
 								rpYFR_PlateThickness);
 
 	// motor mounting
-	translate([ 0, -7, 46 ])
+	translate([ 0, -7, 48 ])
 	mirror([ 0, 0, 1 ])
 	kr_bevel_box(	rpYFR_MotorPlateHeight,
 								5,
