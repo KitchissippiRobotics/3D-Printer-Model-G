@@ -76,11 +76,9 @@ module Part_YFR_Rear()
 
 			// main backplate
 			translate([ 0, 0, 0 ])
-			kr_carved_bevel_box(	HW_FrameSize + gcBevelDiameter * 2,
-														rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter -2,
-														rpYFR_PlateDepth,
-														rpYFR_PlateWall,
-														rpYFR_PlateThickness);
+			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2,
+										rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter -2,
+										rpYFR_PlateDepth);
 
 			// motor backplate
 			translate([ 0, -34.5, 0 ])
@@ -131,6 +129,12 @@ module Part_YFR_Rear()
 										rpYFR_MotorPlateWidth - rpYFR_PlateWall -6.5,
 										rpYFR_MotorPlateThickness);
 
+			// main backplate
+			translate([ 0, 30.75, rpYFR_PlateThickness])
+			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2 - rpYFR_PlateWall,
+										rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter -13.5 - rpYFR_MotorPlateWidth,
+										rpYFR_PlateDepth);
+
 			// motor main hole
 			translate([ 0, 0, 25])
 			rotate([ 90, 0, 0 ])
@@ -170,6 +174,33 @@ module Part_YFR_Rear()
 
 			translate([ 15.5, 28, 25 - 15.5 ])
 			sphere(d = 5.75, $fn=gcFacetSmall);
+
+			// motor shaft mount hole
+			difference() {
+				hull() {
+					translate([ 0, 0, 25])
+					rotate([ 90, 0, 0 ])
+					cylinder ( d = 8, h = 20, $fn=gcFacetSmall);
+
+					translate([ 0, 0, 50])
+					rotate([ 90, 0, 0 ])
+					cylinder ( d = 8, h = 20, $fn=gcFacetSmall);
+				}
+				translate([ 7, -9, 30])
+				cylinder ( d = 8, h = 20, $fn=gcFacetSmall);
+				translate([ -7, -9, 30])
+				cylinder ( d = 8, h = 20, $fn=gcFacetSmall);
+			}
+
+			// frame holders
+			translate([	0, -rpYFR_RailSpacing /2, 0 ])
+			mirror([ 0, 1, 0 ])
+			yfr_frameHolder_carve();
+
+			translate([	0, rpYFR_RailSpacing /2, 0 ])
+			mirror([ 0, 0, 0 ])
+			yfr_frameHolder_carve();
+
 
 			// vent holes
 			hull() {
