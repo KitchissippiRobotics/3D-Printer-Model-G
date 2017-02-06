@@ -205,52 +205,42 @@ module Part_YFR_Rear()
 			// vent holes
 			hull() {
 				translate([ -16, -20, -1 ])
-				rotate([ 0, 0, 0 ])
 				cylinder( d = 2, h = 10, $fn=gcFacetSmall);
 
 				translate([ -16, -50, -1 ])
-				rotate([ 0, 10, 0 ])
 				cylinder( d = 2, h = 10, $fn=gcFacetSmall);
 			}
 
 			hull() {
 				translate([ -8, -17.5, -1 ])
-				rotate([ 0, 0, 0 ])
 				cylinder( d = 3, h = 10, $fn=gcFacetSmall);
 
 				translate([ -8, -52.5, -1 ])
-				rotate([ 0, 0, 0 ])
 				cylinder( d = 3, h = 10, $fn=gcFacetSmall);
 			}
 
 			hull() {
 				translate([ 0, -15, -1 ])
-				rotate([ 0, 0, 0 ])
 				cylinder( d = 4, h = 10, $fn=gcFacetSmall);
 
 				translate([ 0, -55, -1 ])
-				rotate([ 0, 0, 0 ])
 				cylinder( d = 4, h = 10, $fn=gcFacetSmall);
 			}
 
 			hull() {
 				translate([ 8, -17.5, -1 ])
-				rotate([ 0, 0, 0 ])
 				cylinder( d = 3, h = 10, $fn=gcFacetSmall);
 
 				translate([ 8, -52.5, -1 ])
-				rotate([ 0, 0, 0 ])
 				cylinder( d = 3, h = 10, $fn=gcFacetSmall);
 			}
 
 
 			hull() {
 				translate([ 16, -20, -1 ])
-				rotate([ 0, 0, 0 ])
 				cylinder( d = 2, h = 10, $fn=gcFacetSmall);
 
 				translate([ 16, -50, -1 ])
-				rotate([ 0, 0, 0 ])
 				cylinder( d = 2, h = 10, $fn=gcFacetSmall);
 			}
 
