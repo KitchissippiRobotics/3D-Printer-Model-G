@@ -101,7 +101,7 @@ module Carve_hw_Bolt_AllenHead(_boltSize, _boltLength, _headClearance = 0, _wash
 		cylinder( h = _washerThickness + _boltSize[iBolt_HeadHeight],
 							d = _washerSize + gcMachineOffset,
 							center = false,
-							$fn = gcFacetSmall);
+							$fn = gcFacetMedium);
 	}
 
 	// hole for bolt shaft

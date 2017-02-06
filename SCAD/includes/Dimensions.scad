@@ -21,7 +21,8 @@ rpYFR_PlateWall = 5;
 
 rpYFR_MotorPlateHeight = 45;
 rpYFR_MotorPlateWidth = 60;
-rpYFR_MotorPlateThickness = 15;
+rpYFR_MotorPlateThickness = 14;
+rpYFR_MotorHoleDiameter = 26;
 
 rpYFR_OutterBoltSpacing = 16;
 rpYFR_BoltDepth = 5;

@@ -87,6 +87,8 @@ module Part_YFR_Rear()
 			kr_bevel_box(	rpYFR_MotorPlateHeight,
 										rpYFR_MotorPlateWidth,
 										rpYFR_MotorPlateThickness);
+
+			yfr_motorMount();
 		}
 
 		// carve out hardware spaces
@@ -124,20 +126,39 @@ module Part_YFR_Rear()
 							hwLR_Rail_Length]);
 
 			// motor backplate
-			translate([ 0, -34.5, rpYFR_PlateThickness / 2 ])
+			translate([ 0, -37.75, rpYFR_PlateThickness / 2 ])
 			kr_bevel_box(	rpYFR_MotorPlateHeight - rpYFR_PlateWall,
-										rpYFR_MotorPlateWidth - rpYFR_PlateWall,
+										rpYFR_MotorPlateWidth - rpYFR_PlateWall -6.5,
 										rpYFR_MotorPlateThickness);
 
+			// motor main hole
+			translate([ 0, 0, 25])
+			rotate([ 90, 0, 0 ])
+			cylinder ( d = rpYFR_MotorHoleDiameter, h = 20);
 
 
+			// belt clearance path
+			hull() {
+				translate([ 0, 0, 25])
+				rotate([ 90, 0, 0 ])
+				cylinder ( d1 = rpYFR_MotorHoleDiameter - 2, d2 = rpYFR_MotorHoleDiameter - 6, h = 5);
 
-										//rpYFR_PlateWall / 2)
+				translate([ 50, 0, 25])
+				rotate([ 90, 0, 0 ])
+				cylinder ( d1 = rpYFR_MotorHoleDiameter - 2, d2 = rpYFR_MotorHoleDiameter - 6, h = 5);
+			}
+
 		}
 
 	}
 
-	// motor mounting
+
+
+
+}
+
+module yfr_motorMount()
+{
 	translate([ 0, -7, 0 ])
 	kr_bevel_box(	rpYFR_MotorPlateHeight,
 								5,
@@ -153,7 +174,6 @@ module Part_YFR_Rear()
 								21 + 4,
 								rpYFR_PlateWall,
 								rpYFR_PlateThickness);
-
 }
 
 // *****************************************************************************
