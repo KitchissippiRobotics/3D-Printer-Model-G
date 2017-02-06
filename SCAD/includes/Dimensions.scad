@@ -12,7 +12,7 @@ include <Configuration.scad>
 
 rpYFR_RailSpacing = 155;  // center-to-center spacing of Y Axis rails
 
-rpYFR_CapThickness = 2;
+rpYFR_CapThickness = 1;
 rpYFR_CapLength = 40;
 
 rpYFR_PlateDepth = 10;
