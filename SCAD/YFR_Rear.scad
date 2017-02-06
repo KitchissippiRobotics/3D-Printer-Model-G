@@ -84,7 +84,7 @@ module Part_YFR_Rear()
 			translate([ 0, -34.5, 0 ])
 			kr_bevel_box(	rpYFR_MotorPlateHeight,
 										rpYFR_MotorPlateWidth,
-										rpYFR_MotorPlateThickness);
+										rpYFR_MotorPlateDepth);
 
 			yfr_motorMount();
 		}
@@ -124,15 +124,15 @@ module Part_YFR_Rear()
 							hwLR_Rail_Length]);
 
 			// motor backplate
-			translate([ 0, -37.75, rpYFR_PlateThickness / 2 ])
-			kr_bevel_box(	rpYFR_MotorPlateHeight - rpYFR_PlateWall,
-										rpYFR_MotorPlateWidth - rpYFR_PlateWall -6.5,
-										rpYFR_MotorPlateThickness);
+			translate([ 0, -36.5, rpYFR_MotorPlateThickness ])
+			kr_bevel_box(	rpYFR_MotorPlateHeight - rpYFR_MotorPlateWall,
+										rpYFR_MotorPlateWidth - rpYFR_PlateWall -6.0,
+										rpYFR_MotorPlateDepth);
 
 			// main backplate
-			translate([ 0, 30.75, rpYFR_PlateThickness])
+			translate([ 0, 29.5, rpYFR_PlateThickness])
 			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2 - rpYFR_PlateWall,
-										rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter -13.5 - rpYFR_MotorPlateWidth,
+										rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter -11 - rpYFR_MotorPlateWidth,
 										rpYFR_PlateDepth);
 
 			// motor main hole

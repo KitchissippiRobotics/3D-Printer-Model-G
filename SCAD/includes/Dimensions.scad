@@ -10,18 +10,20 @@
 // Include common assembly hardware dimensions
 include <Configuration.scad>
 
-rpYFR_RailSpacing = 160;  // center-to-center spacing of Y Axis rails
+rpYFR_RailSpacing = 155;  // center-to-center spacing of Y Axis rails
 
 rpYFR_CapThickness = 2;
 rpYFR_CapLength = 40;
 
 rpYFR_PlateDepth = 10;
 rpYFR_PlateThickness = 4;
-rpYFR_PlateWall = 5;
+rpYFR_PlateWall = 8;
 
 rpYFR_MotorPlateHeight = 45;
 rpYFR_MotorPlateWidth = 60;
-rpYFR_MotorPlateThickness = 10;
+rpYFR_MotorPlateThickness = 2;
+rpYFR_MotorPlateDepth = 10;
+rpYFR_MotorPlateWall = 4;
 rpYFR_MotorHoleDiameter = 26;
 
 rpYFR_OutterBoltSpacing = 16;
