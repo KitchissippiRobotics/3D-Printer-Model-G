@@ -10,6 +10,10 @@
 // Include common assembly hardware dimensions
 include <Configuration.scad>
 
+// this adjusts the spacing of Y Axis t-slot and rail assembly
+// in an ideal world this can be adjusted at will, however currently there is code in
+// YFR_Motor.scad and YFR_Common.scad which uses hard values based on 155mm spacing
+ 
 rpYFR_RailSpacing = 155;  // center-to-center spacing of Y Axis rails
 
 rpYFR_CapThickness = 2;
