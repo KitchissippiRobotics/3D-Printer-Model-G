@@ -94,9 +94,9 @@ module Part_YFR_Motor()
 			yfr_FrameHolder();
 
 			// main backplate
-			translate([ - (HW_FrameSize + gcBevelDiameter * 2) / 2, - ((rpYFR_RailSpacing / 2) - HW_FrameSize + gcBevelSize + rpYFR_PlateWall), 0 ])
+		translate([ - (HW_FrameSize + gcBevelDiameter * 2) / 2, - ((rpYFR_RailSpacing / 2) - HW_FrameSize + gcBevelSize + rpYFR_PlateWall), 0 ])
 			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2,
-										rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter - 2,
+										rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter ,
 										rpYFR_PlateDepth);
 
 

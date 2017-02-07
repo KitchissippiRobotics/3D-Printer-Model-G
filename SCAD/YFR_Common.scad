@@ -30,12 +30,14 @@ module yfr_frameHolder_draw()
 {
   // pre calculate repeatedly used values
 
-	capLength 		= rpYFR_CapLength - rpYFR_CapThickness - gcBevelSize;
+	capLength 		= rpYFR_CapLength - rpYFR_CapThickness - gcBevelSize * 2;
 	topOffset 		= HW_FrameSize /2 + hwLR_Rail_Height + rpYFR_CapThickness;
 	bottomOffset 	= HW_FrameSize /2 + gcBevelDiameter;
 	sideOffset 		= HW_FrameSize /2 + gcBevelDiameter;
+  bevelLength   = rpYFR_CapLength - gcBevelSize;
 
 	hull() {
+
 		translate([ -topOffset, -sideOffset, gcBevelSize ])
 		cylinder(	d = gcBevelDiameter,
 							h = capLength,
@@ -59,22 +61,22 @@ module yfr_frameHolder_draw()
 		// 2017 Style Parametric Bevels
 		translate([ -topOffset + gcBevelInset, -sideOffset + gcBevelInset, 0 ])
 		cylinder(	d = gcBevelDiameter,
-							h = gcBevelSize,
+							h = bevelLength,
 							$fn = gcFacetSmall);
 
 		translate([ -topOffset + gcBevelInset, sideOffset - gcBevelInset, 0 ])
 		cylinder(	d = gcBevelDiameter,
-							h = gcBevelSize,
+							h = bevelLength,
 							$fn = gcFacetSmall);
 
 		translate([ bottomOffset - gcBevelInset, -sideOffset + gcBevelInset, 0 ])
 		cylinder(	d = gcBevelDiameter,
-							h = gcBevelSize,
+							h = bevelLength,
 							$fn = gcFacetSmall);
 
 		translate([ bottomOffset - gcBevelInset, sideOffset - gcBevelInset, 0 ])
 		cylinder(	d = gcBevelDiameter,
-							h = gcBevelSize,
+							h = bevelLength,
 							$fn = gcFacetSmall);
 	}
 }
@@ -82,8 +84,8 @@ module yfr_frameHolder_draw()
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 module yfr_frameHolder_carve()
 {
-  outerBoltOffset = HW_FrameSize /2 + rpYFR_BoltDepth;
-  boltCenter = ((rpYFR_CapLength - rpYFR_CapThickness) /2) + rpYFR_CapThickness;
+  outerBoltOffset = HW_FrameSize / 2 + rpYFR_BoltDepth;
+  boltCenter = ((rpYFR_CapLength - rpYFR_CapThickness) /2 ) + rpYFR_CapThickness - gcBevelSize;
 
   // one inside bolt
   translate([ 0, -outerBoltOffset, boltCenter ])
@@ -139,7 +141,7 @@ module yfr_frameHolder_carve()
 module yfr_frameHolder_vitamins()
 {
   outerBoltOffset = HW_FrameSize /2 + rpYFR_BoltDepth;
-  boltCenter = ((rpYFR_CapLength - rpYFR_CapThickness) /2) + rpYFR_CapThickness;
+  boltCenter = ((rpYFR_CapLength - rpYFR_CapThickness) /2) + rpYFR_CapThickness - gcBevelSize;
 
   // one inside bolt
   %translate([ 0, -outerBoltOffset, boltCenter ])
