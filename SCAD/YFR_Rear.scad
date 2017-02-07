@@ -126,14 +126,19 @@ module Part_YFR_Rear()
 			// motor backplate
 			translate([ 0, -36.5, rpYFR_MotorPlateThickness ])
 			kr_bevel_box(	rpYFR_MotorPlateHeight - rpYFR_MotorPlateWall,
-										rpYFR_MotorPlateWidth - rpYFR_PlateWall -6.0,
+										rpYFR_MotorPlateWidth - rpYFR_PlateWall -8.0,
 										rpYFR_MotorPlateDepth);
 
 			// main backplate
 			translate([ 0, 29.5, rpYFR_PlateThickness])
-			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2 - rpYFR_PlateWall,
+			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2 - (rpYFR_PlateWall +5),
 										rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter -11 - rpYFR_MotorPlateWidth,
 										rpYFR_PlateDepth);
+
+				/*translate([ 0, 29.5, rpYFR_PlateThickness + 5])
+				kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2 - rpYFR_PlateWall,
+											rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter -11 - rpYFR_MotorPlateWidth,
+											rpYFR_PlateDepth);*/
 
 			// motor main hole
 			translate([ 0, 0, 25])
@@ -169,6 +174,7 @@ module Part_YFR_Rear()
 			rotate([ 90, 0, 0 ])
 			Carve_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10, 30);
 
+			// rounded end for tool access groove
 			translate([ -15.5, 28, 25 - 15.5 ])
 			sphere(d = 5.75, $fn=gcFacetSmall);
 
@@ -234,7 +240,6 @@ module Part_YFR_Rear()
 				translate([ 8, -52.5, -1 ])
 				cylinder( d = 3, h = 10, $fn=gcFacetSmall);
 			}
-
 
 			hull() {
 				translate([ 16, -20, -1 ])

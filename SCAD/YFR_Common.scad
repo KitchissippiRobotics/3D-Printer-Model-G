@@ -87,41 +87,47 @@ module yfr_frameHolder_carve()
   rotate([ 90, 0, 180 ])
   Carve_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, 0, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
 
+/*
   // two outside bolts
   translate([ 0, outerBoltOffset, boltCenter - (rpYFR_OutterBoltSpacing /2) ])
   rotate([ 90, 0, 0 ])
   Carve_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, 0, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
+*/
 
-  translate([ 0, outerBoltOffset, boltCenter + (rpYFR_OutterBoltSpacing /2) ])
+  translate([ 0, outerBoltOffset, boltCenter ])
   rotate([ 90, 0, 0 ])
   Carve_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, 0, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
 
+/*
   // two bottom bolts
   translate([ outerBoltOffset, 0, boltCenter - (rpYFR_OutterBoltSpacing /2) ])
   rotate([ 90, 0, -90 ])
   Carve_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, 0, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
+*/
 
-  translate([ outerBoltOffset, 0, boltCenter + (rpYFR_OutterBoltSpacing /2) ])
+  translate([ outerBoltOffset, 0, boltCenter ])
   rotate([ 90, 0, -90 ])
   Carve_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, 0, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
 
   // carriage clearance
-  hull() {
-    translate([ -12, 23, 12 ])
-    rotate([ 90, 0, 0 ])
-    cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
+  if (rpYFR_EnableCarriageClearance == true) {
+    hull() {
+      translate([ -12, 23, 12 ])
+      rotate([ 90, 0, 0 ])
+      cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
 
-    translate([ -12, 23, 10 + rpYFR_CapLength ])
-    rotate([ 90, 0, 0 ])
-    cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
+      translate([ -12, 23, 10 + rpYFR_CapLength ])
+      rotate([ 90, 0, 0 ])
+      cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
 
-    translate([ -22, 23, 12 ])
-    rotate([ 90, 0, 0 ])
-    cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
+      translate([ -22, 23, 12 ])
+      rotate([ 90, 0, 0 ])
+      cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
 
-    translate([ -22, 23, 10 + rpYFR_CapLength ])
-    rotate([ 90, 0, 0 ])
-    cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
+      translate([ -22, 23, 10 + rpYFR_CapLength ])
+      rotate([ 90, 0, 0 ])
+      cylinder( d = gcBevelDiameter, h = HW_FrameSize + 20);
+    }
   }
 
 }
@@ -137,10 +143,12 @@ module yfr_frameHolder_vitamins()
   rotate([ 90, 0, 180 ])
   Draw_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
 
+/*
   // two outside bolts
   %translate([ 0, outerBoltOffset, boltCenter - (rpYFR_OutterBoltSpacing /2) ])
   rotate([ 90, 0, 0 ])
   Draw_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
+  */
 
   %translate([ 0, outerBoltOffset, boltCenter + (rpYFR_OutterBoltSpacing /2) ])
   rotate([ 90, 0, 0 ])
