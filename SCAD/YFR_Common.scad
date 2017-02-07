@@ -10,7 +10,7 @@
 include <includes/Dimensions.scad>   // includes CommonHardware.scad & Configuration.scad
 
 // -----------------------------------------------------------------------------
-module yfr_FrameHolder()
+module yfr_FrameHolder(_drawVitamins = false)
 {
 
 
@@ -19,7 +19,10 @@ module yfr_FrameHolder()
     yfr_frameHolder_carve();
 
   }
-  yfr_frameHolder_vitamins();
+
+  if (_drawVitamins == true){
+    yfr_frameHolder_vitamins();
+  }
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -150,18 +153,20 @@ module yfr_frameHolder_vitamins()
   Draw_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
   */
 
-  %translate([ 0, outerBoltOffset, boltCenter + (rpYFR_OutterBoltSpacing /2) ])
+  %translate([ 0, outerBoltOffset, boltCenter ])
   rotate([ 90, 0, 0 ])
   Draw_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
 
   // two bottom bolts
-  %translate([ outerBoltOffset, 0, boltCenter - (rpYFR_OutterBoltSpacing /2) ])
+  %translate([ outerBoltOffset, 0, boltCenter  ])
   rotate([ 90, 0, -90 ])
   Draw_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
 
-  %translate([ outerBoltOffset, 0, boltCenter + (rpYFR_OutterBoltSpacing /2) ])
+/*
+%translate([ outerBoltOffset, 0, boltCenter + (rpYFR_OutterBoltSpacing /2) ])
   rotate([ 90, 0, -90 ])
   Draw_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length, HW_FrameWasher_Size, HW_FrameWasher_Thickness);
+*/
 }
 
 
@@ -169,48 +174,46 @@ module yfr_frameHolder_vitamins()
 module kr_bevel_box(_x, _y, _z)
 {
   // pre calculate repeatedly used values
-  xOffset = _x /2;
-  yOffset = _y /2;
 	zLength 		= _z - gcBevelSize;
 
 	hull() {
-		translate([ -xOffset, - yOffset, gcBevelSize ])
+		translate([ 0, 0, gcBevelSize ])
 		cylinder(	d = gcBevelDiameter,
 							h = zLength,
 							$fn = gcFacetSmall);
 
-		translate([ -xOffset, yOffset, gcBevelSize ])
+		translate([ 0, _y, gcBevelSize ])
 		cylinder(	d = gcBevelDiameter,
 							h = zLength,
 							$fn = gcFacetSmall);
 
-		translate([ xOffset, -yOffset, gcBevelSize ])
+		translate([ _x, 0, gcBevelSize ])
 		cylinder(	d = gcBevelDiameter,
 							h = zLength,
 							$fn = gcFacetSmall);
 
-		translate([ xOffset, yOffset, gcBevelSize ])
+		translate([ _x, _y, gcBevelSize ])
 		cylinder(	d = gcBevelDiameter,
 							h = zLength,
 							$fn = gcFacetSmall);
 
 		// 2017 Style Parametric Bevels
-		translate([ -xOffset + gcBevelInset, -yOffset + gcBevelInset, 0 ])
+		translate([ 0 + gcBevelInset, 0+ gcBevelInset, 0 ])
 		cylinder(	d = gcBevelDiameter,
 							h = gcBevelSize,
 							$fn = gcFacetSmall);
 
-		translate([ -xOffset + gcBevelInset, yOffset - gcBevelInset, 0 ])
+		translate([ 0 + gcBevelInset, _y - gcBevelInset, 0 ])
 		cylinder(	d = gcBevelDiameter,
 							h = gcBevelSize,
 							$fn = gcFacetSmall);
 
-		translate([ xOffset - gcBevelInset, -yOffset + gcBevelInset, 0 ])
+		translate([ _x - gcBevelInset, 0 + gcBevelInset, 0 ])
 		cylinder(	d = gcBevelDiameter,
 							h = gcBevelSize,
 							$fn = gcFacetSmall);
 
-		translate([ xOffset - gcBevelInset, yOffset - gcBevelInset, 0 ])
+		translate([ _x - gcBevelInset, _y - gcBevelInset, 0 ])
 		cylinder(	d = gcBevelDiameter,
 							h = gcBevelSize,
 							$fn = gcFacetSmall);
@@ -223,7 +226,7 @@ module kr_carved_bevel_box(_x, _y, _z, _inset, _thickness)
   difference() {
     kr_bevel_box(_x, _y, _z);
 
-    translate([ 0, 0, _thickness ])
+    translate([ _inset , _inset, _thickness ])
     kr_bevel_box(_x - _inset *2, _y - _inset *2, _z - _thickness + 0.1);
   }
 }

@@ -24,11 +24,7 @@ include <YFR_Common.scad>
 if (MultiPartMode == undef) {
 	MultiPartMode = false;
 	EnableSupport = true;
-
-	//rotate([ 0, 90, 0 ])
 	Part_YFR_Motor();
-
-	rotate([ 0, -90, 0 ])
 	Vitamins_YFR_Motor();
 } else {
 	EnableSupport = false;
@@ -38,25 +34,45 @@ if (MultiPartMode == undef) {
 
 
 // -----------------------------------------------------------------------------
-module Vitamins_YFR_Motor()
+module Vitamins_YFR_Motor(_drawRails = false)
 {
-	translate([	rpYFR_CapThickness, -rpYFR_RailSpacing /2, 0 ])
-	rotate([ 0, 90, 0 ])
-	Vitamin_AluminumExtrusion(HW_FrameLength);
+	rotate([ 0, -90, 0 ]) {
+		if (_drawRails == true) {
+			// t-slot
+			translate([	rpYFR_CapThickness, -rpYFR_RailSpacing /2, 0 ])
+			rotate([ 0, 90, 0 ])
+			Vitamin_AluminumExtrusion(HW_FrameLength);
 
-	translate([	rpYFR_CapThickness, rpYFR_RailSpacing /2,	0 ])
-	rotate([ 0, 90, 0 ])
-	Vitamin_AluminumExtrusion(HW_FrameLength);
+			// t-slot
+			translate([	rpYFR_CapThickness, rpYFR_RailSpacing /2,	0 ])
+			rotate([ 0, 90, 0 ])
+			Vitamin_AluminumExtrusion(HW_FrameLength);
 
-	%translate([ hwLR_Rail_Length /2 + rpYFR_CapThickness, -rpYFR_RailSpacing /2, HW_FrameSize - hwLR_Rail_Height ])
-	import("vitamins/hiwin9-rail.stl", convexity=3);
+			// 9mm linear rail
+			%translate([ hwLR_Rail_Length /2 + rpYFR_CapThickness, -rpYFR_RailSpacing /2, HW_FrameSize - hwLR_Rail_Height ])
+			import("vitamins/hiwin9-rail.stl", convexity=3);
 
-	%translate([ hwLR_Rail_Length /2 + rpYFR_CapThickness, rpYFR_RailSpacing /2, HW_FrameSize - hwLR_Rail_Height ])
-	import("vitamins/hiwin9-rail.stl", convexity=3);
+			// 9mm linear rail
+			%translate([ hwLR_Rail_Length /2 + rpYFR_CapThickness, rpYFR_RailSpacing /2, HW_FrameSize - hwLR_Rail_Height ])
+			import("vitamins/hiwin9-rail.stl", convexity=3);
+		}
 
-	%translate([ rpYFR_MotorInset, rpYFR_MotorHorizontalOffset, rpYFR_MotorVerticalOffset ])
-	rotate([ 0, 0, 90 ])
-	import("vitamins/y-axis-motor.stl", convexity=3);
+		// Draw the NEMA17 Motor
+
+		%translate([ rpYFR_MotorInset, rpYFR_MotorHorizontalOffset, rpYFR_MotorVerticalOffset ])
+		rotate([ 0, 0, 90 ])
+		import("vitamins/y-axis-motor.stl", convexity=3);
+	}
+
+	// frame holders
+	translate([	0, -rpYFR_RailSpacing /2, 0 ])
+	mirror([ 0, 1, 0 ])
+	yfr_frameHolder_vitamins();
+
+	translate([	0, rpYFR_RailSpacing /2, 0 ])
+	mirror([ 0, 0, 0 ])
+	yfr_frameHolder_vitamins();
+
 }
 
 // -----------------------------------------------------------------------------
@@ -69,32 +85,35 @@ module Part_YFR_Motor()
 
 		union() {
 		  // frame holders
-			translate([	0, -rpYFR_RailSpacing /2, 0 ])
+			translate([	0, -rpYFR_RailSpacing / 2, 0 ])
 			mirror([ 0, 1, 0 ])
 			yfr_FrameHolder();
 
-			translate([	0, rpYFR_RailSpacing /2, 0 ])
+			translate([	0, rpYFR_RailSpacing / 2, 0 ])
 			mirror([ 0, 0, 0 ])
 			yfr_FrameHolder();
 
 			// main backplate
-			translate([ 0, 0, 0 ])
+			translate([ - (HW_FrameSize + gcBevelDiameter * 2) / 2, - ((rpYFR_RailSpacing / 2) - HW_FrameSize + gcBevelSize + rpYFR_PlateWall), 0 ])
 			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2,
-										rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter -2,
+										rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter - 2,
 										rpYFR_PlateDepth);
 
+
+
 			// motor backplate
-			translate([ 0, -34.5, 0 ])
+			translate([ - rpYFR_MotorPlateHeight / 2, - rpYFR_MotorPlateOffset, 0 ])
 			kr_bevel_box(	rpYFR_MotorPlateHeight,
 										rpYFR_MotorPlateWidth,
 										rpYFR_MotorPlateDepth);
 
+			// motor mount component
 			yfr_motorMount();
 		}
 
 		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		// carve out hardware spaces
-		
+
 		union() {
 
 
@@ -129,15 +148,20 @@ module Part_YFR_Motor()
 							hwLR_Rail_Length]);
 
 			// motor backplate
-			translate([ 0, -36.5, rpYFR_MotorPlateThickness ])
+			translate([ 	- rpYFR_MotorPlateHeight / 2 + rpYFR_MotorPlateWall /2,
+										-rpYFR_MotorPlateOffset + rpYFR_MotorPlateWall,
+										rpYFR_MotorPlateThickness ])
 			kr_bevel_box(	rpYFR_MotorPlateHeight - rpYFR_MotorPlateWall,
 										rpYFR_MotorPlateWidth - rpYFR_PlateWall -8.0,
 										rpYFR_MotorPlateDepth);
 
 			// main backplate
-			translate([ 0, 29.5, rpYFR_PlateThickness])
+			//translate([ 0, 29.5, rpYFR_PlateThickness])
+			translate([ - (HW_FrameSize + gcBevelDiameter * 2) / 2 + rpYFR_PlateWall,
+				 					-0.5,
+									rpYFR_PlateThickness ])
 			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2 - (rpYFR_PlateWall +5),
-										rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter -11 - rpYFR_MotorPlateWidth,
+										rpYFR_RailSpacing / 2 - HW_FrameSize / 2 - gcBevelDiameter - rpYFR_PlateThickness -0.5,
 										rpYFR_PlateDepth);
 
 				/*translate([ 0, 29.5, rpYFR_PlateThickness + 5])
@@ -266,7 +290,7 @@ module Part_YFR_Motor()
 // -----------------------------------------------------------------------------
 module yfr_motorMount()
 {
-	translate([ 0, -7, 0 ])
+	translate([ - rpYFR_MotorPlateWidth / 2 + 7.5 , -9.5, 0 ])
 	kr_bevel_box(	rpYFR_MotorPlateHeight,
 								5,
 								21 + 4,
@@ -274,7 +298,7 @@ module yfr_motorMount()
 								rpYFR_PlateThickness);
 
 	// motor mounting
-	translate([ 0, -7, 48 ])
+	translate([  - rpYFR_MotorPlateWidth / 2 + 7.5, -9.5, 48 ])
 	mirror([ 0, 0, 1 ])
 	kr_bevel_box(	rpYFR_MotorPlateHeight,
 								5,

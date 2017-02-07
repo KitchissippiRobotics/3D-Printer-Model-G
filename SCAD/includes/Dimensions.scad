@@ -8,12 +8,14 @@
 // *****************************************************************************
 
 // Include common assembly hardware dimensions
+
 include <Configuration.scad>
 
-// this adjusts the spacing of Y Axis t-slot and rail assembly
-// in an ideal world this can be adjusted at will, however currently there is code in
-// YFR_Motor.scad and YFR_Common.scad which uses hard values based on 155mm spacing
- 
+// This adjusts the spacing of Y Axis t-slot and rail assembly
+// The default value is 155mm - this is printable on a 200mm wide RepRap bed
+// It can be scaled to any size however larger sizes may want to also increase
+// rpYFR_PlateWall, rpYFR_PlateThickness and rpYFR_PlateDepth to make a stronger part
+
 rpYFR_RailSpacing = 155;  // center-to-center spacing of Y Axis rails
 
 rpYFR_CapThickness = 2;
@@ -38,6 +40,7 @@ rpYFR_BoltDepth = 5;
 rpYFR_MotorHorizontalOffset = -57.5; // offset of motor and belt pulley from center line
 rpYFR_MotorVerticalOffset = -21;
 rpYFR_MotorInset = 42 + rpYFR_CapThickness + 2;
+rpYFR_MotorPlateOffset = 64.5;  // this is calculated to offset the motor from the center line (NEMA17 w/GT2 5mm)
 
 rpYFR_MotorMountThickness = 10;
 
