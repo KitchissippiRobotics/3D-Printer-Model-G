@@ -135,39 +135,52 @@ module Part_YFR_Idler()
 			translate([ - (HW_FrameSize + gcBevelDiameter * 2) / 2 + rpYFR_PlateWall,
 				 					-rpYFR_RailSpacing / 2 + HW_FrameSize /2 + gcBevelDiameter * 2,
 									rpYFR_PlateThickness ])
-			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2 - (rpYFR_PlateWall +5),
+			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2 - (rpYFR_PlateWall + 5),
 										rpYFR_RailSpacing - HW_FrameSize * 2 + gcBevelDiameter,
 										rpYFR_PlateDepth);
 
+		  // idler adjustment hole
 			translate([ 0, 0, -1 ])
 			Carve_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length);
 
-
-
 			// frame holders
-			translate([	0, -rpYFR_RailSpacing /2, 0 ])
+			translate([	0, -rpYFR_RailSpacing / 2, 0 ])
 			mirror([ 0, 1, 0 ])
 			yfr_frameHolder_carve();
 
-			translate([	0, rpYFR_RailSpacing /2, 0 ])
+			translate([	0, rpYFR_RailSpacing / 2, 0 ])
 			mirror([ 0, 0, 0 ])
 			yfr_frameHolder_carve();
+
+			// KillSwitch hole
+			translate([ 0, - rpYFR_RailSpacing / 2 + rpYFR_KillSwitchInset, 0 ])
+			cylinder( d = rpYFR_KillSwitchDiameter, h = rpYFR_PlateDepth);
 
 		}
 
 	}
 
 	difference() {
-		// idler guide
-		translate([ -rpYFR_IdlerGuideHeight / 2 - 2.5, -rpYFR_IdlerGuideWidth / 2 -1, 0 ])
-		kr_bevel_box(rpYFR_IdlerGuideHeight + gcBevelSize + 2, rpYFR_IdlerGuideWidth + 2, rpYFR_IdlerGuideDepth + rpYFR_PlateThickness);
+		union() {
+			// idler guide
+			translate([ -rpYFR_IdlerGuideHeight / 2 - 2.5, -rpYFR_IdlerGuideWidth / 2 -1, 0 ])
+			kr_bevel_box(rpYFR_IdlerGuideHeight + gcBevelSize + 2, rpYFR_IdlerGuideWidth + 2, rpYFR_IdlerGuideDepth + rpYFR_PlateThickness);
+
+			translate([ 0, - rpYFR_RailSpacing / 2 + rpYFR_KillSwitchInset, 0 ])
+			cylinder( d = rpYFR_KillSwitchDiameter + rpYFR_PlateWall, h = rpYFR_PlateThickness + gcBevelSize);
+		}
 
 		// idler guide
 		translate([ -rpYFR_IdlerGuideHeight / 2, -rpYFR_IdlerGuideWidth / 2, rpYFR_PlateThickness ])
 		cube([ rpYFR_IdlerGuideHeight, rpYFR_IdlerGuideWidth, rpYFR_IdlerGuideDepth ]);
 
+		// bolt hole again
 		translate([ 0, 0, -1 ])
 		Carve_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length);
+
+		// kill switch hole again
+		translate([ 0, - rpYFR_RailSpacing / 2 + rpYFR_KillSwitchInset, 0 ])
+		cylinder( d = rpYFR_KillSwitchDiameter, h = rpYFR_PlateDepth);
 	}
 
 }

@@ -46,7 +46,10 @@ rpYFR_MotorMountThickness = 10;
 
 rpYFR_IdlerGuideWidth = 11;
 rpYFR_IdlerGuideHeight = 17;
-rpYFR_IdlerGuideDepth = 15;
+rpYFR_IdlerGuideDepth = 20;
+
+rpYFR_KillSwitchDiameter = 19;
+rpYFR_KillSwitchInset = 40;   // how many mm the switch hole is placed from the right hand side
 
 hwLR_Rail_Width = 9;
 hwLR_Rail_Height = 6.5;

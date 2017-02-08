@@ -11,7 +11,7 @@
 // Global Settings - Edit These to tweak rendering and printability
 // =============================================================================
 
-gRender_Resolution = 2;		// resolution of curves 		- default = 1
+gRender_Resolution = 3;		// resolution of curves 		- default = 1
 
 
 gNozzle_Size = 0.5;			// nozzle size the parts will be printed on
