@@ -92,6 +92,8 @@ module Part_YFR_Idler()
 			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2,
 										rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter ,
 										rpYFR_PlateDepth);
+
+
 		}
 
 		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,17 +132,15 @@ module Part_YFR_Idler()
 
 			// main backplate
 			//translate([ 0, 29.5, rpYFR_PlateThickness])
-			#translate([ - (HW_FrameSize + gcBevelDiameter * 2) / 2 + rpYFR_PlateWall,
+			translate([ - (HW_FrameSize + gcBevelDiameter * 2) / 2 + rpYFR_PlateWall,
 				 					-rpYFR_RailSpacing / 2 + HW_FrameSize /2 + gcBevelDiameter * 2,
 									rpYFR_PlateThickness ])
 			kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2 - (rpYFR_PlateWall +5),
 										rpYFR_RailSpacing - HW_FrameSize * 2 + gcBevelDiameter,
 										rpYFR_PlateDepth);
 
-				/*translate([ 0, 29.5, rpYFR_PlateThickness + 5])
-				kr_bevel_box(	HW_FrameSize + gcBevelDiameter * 2 - rpYFR_PlateWall,
-											rpYFR_RailSpacing - HW_FrameSize - gcBevelDiameter -11 - rpYFR_MotorPlateWidth,
-											rpYFR_PlateDepth);*/
+			translate([ 0, 0, -1 ])
+			Carve_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length);
 
 
 
@@ -157,8 +157,18 @@ module Part_YFR_Idler()
 
 	}
 
+	difference() {
+		// idler guide
+		translate([ -rpYFR_IdlerGuideHeight / 2 - 2.5, -rpYFR_IdlerGuideWidth / 2 -1, 0 ])
+		kr_bevel_box(rpYFR_IdlerGuideHeight + gcBevelSize + 2, rpYFR_IdlerGuideWidth + 2, rpYFR_IdlerGuideDepth + rpYFR_PlateThickness);
 
+		// idler guide
+		translate([ -rpYFR_IdlerGuideHeight / 2, -rpYFR_IdlerGuideWidth / 2, rpYFR_PlateThickness ])
+		cube([ rpYFR_IdlerGuideHeight, rpYFR_IdlerGuideWidth, rpYFR_IdlerGuideDepth ]);
 
+		translate([ 0, 0, -1 ])
+		Carve_hw_Bolt_AllenHead(HW_FrameBolt_Size, HW_FrameBolt_Length);
+	}
 
 }
 

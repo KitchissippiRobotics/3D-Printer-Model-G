@@ -44,6 +44,10 @@ rpYFR_MotorPlateOffset = 64.5;  // this is calculated to offset the motor from t
 
 rpYFR_MotorMountThickness = 10;
 
+rpYFR_IdlerGuideWidth = 11;
+rpYFR_IdlerGuideHeight = 17;
+rpYFR_IdlerGuideDepth = 15;
+
 hwLR_Rail_Width = 9;
 hwLR_Rail_Height = 6.5;
 hwLR_Rail_Length = 500;
