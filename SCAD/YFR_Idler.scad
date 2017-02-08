@@ -163,8 +163,17 @@ module Part_YFR_Idler()
 	difference() {
 		union() {
 			// idler guide
+			hull() {
 			translate([ -rpYFR_IdlerGuideHeight / 2 - 2.5, -rpYFR_IdlerGuideWidth / 2 -1, 0 ])
-			kr_bevel_box(rpYFR_IdlerGuideHeight + gcBevelSize + 2, rpYFR_IdlerGuideWidth + 2, rpYFR_IdlerGuideDepth + rpYFR_PlateThickness);
+			kr_bevel_box(	rpYFR_IdlerGuideHeight + gcBevelSize + 2,
+				 						rpYFR_IdlerGuideWidth + 2,
+										rpYFR_IdlerGuideDepth + rpYFR_PlateThickness);
+
+			translate([ -rpYFR_IdlerGuideHeight / 2 - 5.5, -rpYFR_IdlerGuideWidth / 2 -4, 0 ])
+			kr_bevel_box(	rpYFR_IdlerGuideHeight + gcBevelSize + 8,
+				 						rpYFR_IdlerGuideWidth + 8,
+										rpYFR_PlateThickness);
+			}
 
 			translate([ 0, - rpYFR_RailSpacing / 2 + rpYFR_KillSwitchInset, 0 ])
 			cylinder( d = rpYFR_KillSwitchDiameter + rpYFR_PlateWall, h = rpYFR_PlateThickness + gcBevelSize);
