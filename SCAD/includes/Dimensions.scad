@@ -11,6 +11,11 @@
 
 include <Configuration.scad>
 
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Y Axis
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 // This adjusts the spacing of Y Axis t-slot and rail assembly
 // The default value is 155mm - this is printable on a 200mm wide RepRap bed
 // It can be scaled to any size however larger sizes may want to also increase
@@ -51,6 +56,14 @@ rpYFR_IdlerGuideDepth = 20;
 rpYFR_KillSwitchDiameter = 19;
 rpYFR_KillSwitchInset = 40;   // how many mm the switch hole is placed from the right hand side
 
+
 hwLR_Rail_Width = 9;
 hwLR_Rail_Height = 6.5;
 hwLR_Rail_Length = 500;
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Z Axis
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+hwZAxis_Spacing = 100;  // spacing between front and back square frames
