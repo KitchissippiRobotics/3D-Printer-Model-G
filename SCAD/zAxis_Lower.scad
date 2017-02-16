@@ -30,11 +30,17 @@ if (MultiPartMode == undef) {
 // -----------------------------------------------------------------------------
 module Vitamins_zAxis_Lower()
 {
+  // draw motor mounting
 
+  // draw frame mounts
+
+  // draw rod mounting
+
+	// profit?
 }
 
 // -----------------------------------------------------------------------------
 module Part_zAxis_Lower()
 {
-  
+
 }
