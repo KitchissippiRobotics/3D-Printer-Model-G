@@ -53,7 +53,7 @@ rpYFR_IdlerGuideWidth = 11;
 rpYFR_IdlerGuideHeight = 17;
 rpYFR_IdlerGuideDepth = 20;
 
-rpYFR_KillSwitchDiameter = 19;
+rpYFR_KillSwitchDiameter = 19.5;
 rpYFR_KillSwitchInset = 40;   // how many mm the switch hole is placed from the right hand side
 
 
@@ -67,3 +67,15 @@ hwLR_Rail_Length = 500;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 hwZAxis_Spacing = 100;  // spacing between front and back square frames
+
+hwZAxis_DriveRod_Diameter = 8;
+hwZAxis_DriveRod_Length = 460;
+
+hwZAxis_GuideRod_Diameter   = 12;    // 12mm vertical rods
+hwZAxis_GuideRod_Length     = 500;    // 500mm vertical rods
+
+// spacing of the vertical rods (drive and guide) is centered around 0,0 - use these to offset it if necessary
+rpZAxis_RodOffset_X = 0;
+rpZAxis_RodOffset_Y = 0;
+
+rpZAxis_RodSpacing = 40;  // spacing between vertical smooth rod and motorized drive rod

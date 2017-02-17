@@ -30,7 +30,19 @@ if (MultiPartMode == undef) {
 // -----------------------------------------------------------------------------
 module Vitamins_zAxis_Lower()
 {
-  // draw motor mounting
+	// draw guide rod
+	translate([- rpZAxis_RodSpacing / 2, 0 ,0])
+	%cylinder(d = hwZAxis_GuideRod_Diameter, h = hwZAxis_GuideRod_Length, $fn = gcFacetMedium);
+
+	// draw drive rod
+	translate([rpZAxis_RodSpacing / 2, 0 ,0])
+	%cylinder(d = hwZAxis_DriveRod_Diameter, h = hwZAxis_DriveRod_Length, $fn = gcFacetMedium);
+}
+
+// -----------------------------------------------------------------------------
+module Part_zAxis_Lower()
+{
+	// draw motor mounting
 
   // draw frame mounts
 
@@ -39,8 +51,6 @@ module Vitamins_zAxis_Lower()
 	// profit?
 }
 
-// -----------------------------------------------------------------------------
-module Part_zAxis_Lower()
-{
+module zAxis_motorMount() {
 
 }
